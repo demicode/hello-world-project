@@ -17,7 +17,7 @@ super_run:
 	add.w	#$ff,d0
 	clr.b	d0
 	move.l	d0,a6		; Store screen pointer in a6
-	lsr.l	#8,d0
+	lsr.w	#8,d0
 	move.l	d0,$ffff8200.w	; Set screen address registers.
 
 	; Set palette
