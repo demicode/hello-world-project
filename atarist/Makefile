@@ -1,22 +1,13 @@
 
-OUT = hellost.prg
+OUT = hello_st.prg
 
 SRC = hello_st.s
-OBJS = $(SRC:.s=.o)
 
 AS = vasmm68k_mot
-AS_FLAGS = -quiet -m68000 -devpac -Faout  -align
+AS_FLAGS = -quiet -m68000 -devpac -Faout  -align -Ftos
 
-LD = $(PREFIX)vlink
-LD_FLAGS = -bataritos -s
-
-
-all: $(OBJS)
-	$(LD) $(LD_FLAGS) -o $(OUT) $(OBJS)
-
-%.o: %.s
-	$(AS) $(AS_FLAGS) -o $@ $<
-
+all:
+	$(AS) $(AS_FLAGS) -o $(OUT) $(SRC)
 
 clean:
-	rm -r $(OUT) $(OBJS)
+	rm -f $(OUT)
