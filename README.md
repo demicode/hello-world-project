@@ -1,12 +1,18 @@
 The Hello World project
 =======================
 
-The idea I had was to create a collection of Hello World-like hacks for
-many different oldschool platforms, in assembly. The goal is to make use
-of the hardware instead of any OS functions.
+A collection of assembly code to display a 'Hello World' message on screen 
+for various oldschool platforms.
 
-I will not put any effort in being system friendly or so, just do the 
-initial setup that is needed to draw the text on the screen.
+The intention is to learn to write code for new (to me) and old platforms
+and to maybe inspire other to start coding assembler for these platforms,
+when they see how easy (?) it can be to get started.
+
+The goal is to make use of the hardware instead of any OS functions. I 
+will not put any effort in being system friendly or so, just do the initial
+setup that is needed to draw the graphics on the screen.
+
+This is about programming graphics, not to use a console to output text.
 
 Tools
 -----
@@ -14,19 +20,38 @@ For compilation I will try to use tools that are freely avaliable for
 anyone to download, and I will atleast write down the tools I used and
 add a download link when possible.
 
-
-Planned platforms
+Current platforms
 -----------------
+Currently code is implemented for the following platforms.
 
  * Atari ST
- * Sega Master System
 
-
-Future platforms
+Planned
 ----------------
+I intend to include code for the following hardware. If you want to
+see more platforms, just send me a request and I will maybe add it 
+to the list.
+
+ * Sega Master System
  * Amiga OCS
  * Sega Mega Drive
  * SNES
  * NES
  * Atari 8bit
+ * MSX
+ * C64
+ * Game Boy
+ * Game Boy Advance
+
+Disclaimer
+----------
+This project is made for my own pleasure, and I take no responsibility 
+if the code harm you computer(s) in any way. I do not claim that the my
+solutions are the best way, or even a good way to do what they intend to.
+I do this to learn new platforms, not to collect code from
+other people that implements what I want to do.
+
+Contact
+-------
+Mikael Degerfält - micke()demicode.se
 
