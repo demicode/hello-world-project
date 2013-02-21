@@ -8,7 +8,7 @@ Tools
 This code was written intended to be assembled by the exellent *vasm*. 
 It can probably be assembled using devpac on native hardware too, but
 I have not verified that.
-You the vasmm68k with motorola syntax to be able to assemble correctly.
+Use the vasmm68k with motorola syntax to be able to assemble correctly.
 
 I recommend using Hatari to run the program if you want to emulate.
 
