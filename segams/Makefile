@@ -11,16 +11,16 @@ all: $(ROMFILE)
 
 
 $(ROMFILE): $(OBJS) $(LNKFILE)
-	wlalink $(LNKFILE) $@
+	wlalink -vr $(LNKFILE) $@
 
 %.o: %.s
 	wla-z80 -o $< $@
 
 
 $(LNKFILE):
-	echo "[objects]" > $@
-	echo "$(OBJS)" >> $@
+	@echo "[objects]" > $@
+	@echo "$(OBJS)" >> $@
 
 
 clean:
-	rm -f $(LNKFILE) $(OBJS) $(ROMFILE)
+	@rm -f $(LNKFILE) $(OBJS) $(ROMFILE)
