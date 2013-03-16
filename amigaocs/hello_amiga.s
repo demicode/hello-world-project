@@ -27,24 +27,24 @@
     move.w  #$7fff,$9a(a1)      ; Disable interrupts
     move.w  #$7fff,$96(a1)      ; Disable all DMA.
 
-    move.w  #$83c0,$96(a1)      ; Re-enable some DMA.
+    move.w  #$8380,$96(a1)      ; Re-enable DMA for copper and bitplane data.
 
     lea     screen_mem,a0       ; Get address to screen memory
     lea     gfx,a3              ; Get address to the graphics.
     moveq   #5,d0               ; Loop 6 times.
 .draw_loop:
-    move.w  (a3)+,0(a0)         ; Move a word to graphics mem
-    move.w  (a3)+,2(a0)
-    move.w  (a3)+,4(a0)
-    lea     40(a0),a0           ; Skip 40 bytes, which corresponds to on line 
+    move.w  (a3)+,(a0)+         ; Move a word to graphics mem
+    move.w  (a3)+,(a0)+
+    move.w  (a3)+,(a0)+
+    lea     34(a0),a0           ; Skip 34 bytes, to the beginning of the next line
     dbra    d0,.draw_loop       ; Decrease d0 and jump to draw_loop if d0 not -1.
 
     ; Setup copper list.
-    lea     vmem_ptr,a0         ; Offset to video register setup in copper list
+    lea     vmem_ptr+2,a0       ; Offset to video register setup in copper list
     move.l  #screen_mem,d0      ; Get address to screen memory
-    move.w  d0,6(a0)            ; Move low word of address to copper data.
+    move.w  d0,4(a0)            ; Move low word of address to copper data.
     swap    d0                  ; swap position of low and high word in d0
-    move.w  d0,2(a0)            ; Write high word of address to copper data.
+    move.w  d0,(a0)            ; Write high word of address to copper data.
 
     move.l  #copper_list,$80(a1)  ; Start using our copper list.
     clr.w   $88(a1)             ; Strobe 
