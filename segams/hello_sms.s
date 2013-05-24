@@ -15,28 +15,28 @@
   SLOT 2 $8000
 .ENDME
 
-; 
-.ROMBANKMAP
-  BANKSTOTAL 2
-  BANKSIZE $4000
-  BANKS 2
-.ENDRO
+.ROMBANKSIZE $4000
+.ROMBANKS 2
 
 .SDSCTAG 1.0 "Hello World", "A hello world example for Master System", "Mikael Degerfalt"
-.COMPUTESMSCHECKSUM
-
+.SMSTAG
 
 .BANK 0 SLOT 0
 .orga	$0
   di
-  im  1
-  jp	start
+  im  1        ; Interrupt mode 1, this is the only mode supported by the Master system.
+  jp	start    ; Jump to start label
 
+; In interrupt mode 1, the cpu jumps to address $38 when an interrupt occurs.
+; Only the VDP can trigger interrupts on the SMS, either every VBL and/or 
+; every scanline. 
 .orga $38
-  reti
+  reti          ; Return from interrupt.
 
+; As above, but for the non-maskable interrupt CPU jumps to $66.
+; The non-maskable interrupt is triggered by the Pause button.
 .orga $66
-  retn
+  retn          ; Return from non-maskable interrupt
 
 start:
   ; Upload the graphics mode to VDP
@@ -50,14 +50,10 @@ start:
   out (c),l
   out (c),h
   ld  hl,gfx
-  ld  de, 32*6
+  ld  b, 32*6
   dec c
--:
-  outi 
-  dec de
-  ld  a,e
-  or  d
-  jp nz,-
+  otir
+
 
   ; Upload color palette to palette memory in VDP
   ld hl,color_palette
@@ -71,11 +67,12 @@ start:
   otir        ; Write (hl) value to port (c), increase hl, decrease b, and repeat until b == 0
 
   inc c       ; c = $bf
-  ld  de,$3800
+  ld  de,$37fe
   out (c),e
   out (c),d
   dec c
   xor a
+  ld e,a
   ld b,6
 -:
   inc a
@@ -89,7 +86,7 @@ halt:
 
 
 vdp_setup:
-  .db   $34,$80     ; Mode control reg. 1
+  .db   $14,$80     ; Mode control reg. 1
   .db   $40,$81     ; Mode control reg. 2 ( bit 6 enables display)
   .db   $ff,$82     ; Name table base
   .db   $ff,$83     ; Color table base
