@@ -25,6 +25,7 @@ Current platforms
 Currently code is implemented for the following platforms.
 
  * Atari ST
+ * Amiga OCS
 
 Planned
 ----------------
@@ -33,7 +34,6 @@ see more platforms, just send me a request and I will maybe add it
 to the list.
 
  * Sega Master System
- * Amiga OCS
  * Sega Mega Drive
  * SNES
  * NES
