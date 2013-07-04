@@ -26,6 +26,16 @@ Currently code is implemented for the following platforms.
 
  * Atari ST
  * Amiga OCS
+ * Game Boy Advance
+
+In progress
+----------------
+Implementations on some platforms has begun, but is not 100% complete.
+In some cases it's 99% done, in others 1%.
+
+ * Sega Master System
+ * Game Boy
+
 
 Planned
 ----------------
@@ -33,15 +43,12 @@ I intend to include code for the following hardware. If you want to
 see more platforms, just send me a request and I will maybe add it 
 to the list.
 
- * Sega Master System
  * Sega Mega Drive
  * SNES
  * NES
  * Atari 8bit
  * MSX
  * C64
- * Game Boy
- * Game Boy Advance
 
 Disclaimer
 ----------
