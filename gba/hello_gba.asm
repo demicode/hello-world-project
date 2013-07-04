@@ -33,7 +33,7 @@ _start:
 	mov		r2,#4|0x400				; Set mode 4 and enable background 2
 	str		r2,[r4]					; load display control with mode
 
-	; set palette, use dma3
+	; set palette
 	adr		r0,palette_1-4		; address to palette data
 	mov		r1,#0x05000000		; palette register address
 	mov		r2,#16				; words to copy...
