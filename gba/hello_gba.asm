@@ -33,14 +33,6 @@ _start:
 	mov		r2,#4|0x400				; Set mode 4 and enable background 2
 	str		r2,[r4]					; load display control with mode
 
-	; Setup background control.
-	; Bit 13 - wrap rot/scale overflow.
-	; bit 1.0  - render prio. 00 = first? prio doesn't matter since only bg2 is enabled.
-	mov		r2,#0x2000
-
-	strh	r0,[r4,#0x0c] 	; Write data to BG2 control
-
-
 	; set palette, use dma3
 	adr		r0,palette_1-4		; address to palette data
 	mov		r1,#0x05000000		; palette register address
