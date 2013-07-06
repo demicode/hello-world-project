@@ -72,37 +72,28 @@ joypad:
 .orga $150
 main:
 	ld sp,$e000  ; Setup stackpointer.
-;	ld bc,32*32
-;	ld hl,$9800	 ; tile map
-;	xor a
-;	ld e,a
-;-:
-;	ld a,e
-;	ldi (hl),a
-;	dec bc
-;	ld a,c
-;	or b
-;	jp nz,-
 
-
-	ld de,$8000
-	ld hl,gfx
-	ld b,$10
+	ld hl,$8000
+	ld de,gfx
+	ld b,16*7
 -:
-	ldi a,(hl)
-	ld  (de),a
+	ld a,(de)
+	xor	$ff
+	ldi (hl),a
+	ldi (hl),a
 	inc de 
-	dec bc
-	ld a,e
-	or d
+	dec b
 	jp nz,-
 
 
 	ld hl,$9800
 	ld a,1
+	ld b,6
+-:
 	ldi (hl),a
 	inc a
-	ldi (hl),a
+	dec b
+	jp nz,-
 
 
 	
@@ -111,12 +102,66 @@ main:
 
 
 gfx:  
-	.db   $ff,$ff,$ff,$ff
-	.db   $ff,$ff,$ff,$ff
-	.db   $ff,$ff,$ff,$ff
-	.db   $ff,$ff,$ff,$ff
+	.db     $00
+	.db     $00
+	.db     $00
+	.db     $00
+	.db     $00
+	.db     $00
+	.db     $00
+	.db     $00
 
-	.db   $ff,$ff,$ff,$ff
-	.db   $ff,$ff,$ff,$ff
-	.db   $ff,$ff,$ff,$ff
-	.db   $ff,$ff,$ff,$ff
+	.db     %00000000
+	.db     %01000100
+	.db     %01000100
+	.db     %01000101
+	.db     %01111101
+	.db     %01000101
+	.db     %01000100
+	.db     %00000000
+
+	.db     %00000000
+	.db     %00000101
+	.db     %11100101
+	.db     %00010101
+	.db     %11110101
+	.db     %00000101
+	.db     %11110101
+	.db     %00000000
+
+	.db     %00000000
+	.db     %00000001
+	.db     %00110001
+	.db     %01001001
+	.db     %01001001
+	.db     %01001001
+	.db     %00110000
+	.db     %00000000
+
+	.db     %00000000
+	.db     %00010000
+	.db     %00010011
+	.db     %00010100
+	.db     %01010100
+	.db     %01010100
+	.db     %10100011
+	.db     %00000000
+
+	.db     %00000000
+	.db     %00000001
+	.db     %00011001
+	.db     %10100101
+	.db     %10100001
+	.db     %10100001
+	.db     %00100001
+	.db     %00000000
+
+	.db     %00000000
+	.db     %00001010
+	.db     %00111010
+	.db     %01001010
+	.db     %01001010
+	.db     %01001000
+	.db     %00111010
+	.db     %00000000
+
