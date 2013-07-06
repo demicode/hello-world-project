@@ -45,7 +45,6 @@ start:
   ld  hl,vdp_setup
   otir
 
-  ld  c,$bf
   ld  hl,$4020
   out (c),l
   out (c),h
@@ -67,7 +66,7 @@ start:
   otir        ; Write (hl) value to port (c), increase hl, decrease b, and repeat until b == 0
 
   inc c       ; c = $bf
-  ld  de,$37fe
+  ld  de,$7800
   out (c),e
   out (c),d
   dec c
@@ -76,8 +75,8 @@ start:
   ld b,6
 -:
   inc a
-  out (c),e
   out (c),a
+  out (c),e
   djnz -
 
 
@@ -86,7 +85,7 @@ halt:
 
 
 vdp_setup:
-  .db   $14,$80     ; Mode control reg. 1
+  .db   $04,$80     ; Mode control reg. 1
   .db   $40,$81     ; Mode control reg. 2 ( bit 6 enables display)
   .db   $ff,$82     ; Name table base
   .db   $ff,$83     ; Color table base
