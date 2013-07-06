@@ -34,16 +34,11 @@ _start:
 	str		r2,[r4]					; load display control with mode
 
 	; set palette
-	adr		r0,palette_1-4		; address to palette data
+	adr		r0,palette_1		; address to palette data
 	mov		r1,#0x05000000		; palette register address
-	mov		r2,#16				; words to copy...
 
-.set_pal_loop:
-	ldr		r3,[r0,#4]!			; load palette data 
+	ldr		r3,[r0]			    ; load colour data 
 	str		r3,[r1]				; store in palette register
-	add		r1,r1,#4
-	subs	r2,r2,#1			; 
-	bne		.set_pal_loop
 
 
 	;---------
@@ -74,8 +69,7 @@ stay_forever:
 ; 16 color palette
 
 palette_1:
-	.half	0x0000,0x7fff,0x0f03,0x0005,0x0007,0x0009,0x000b,0x000d
-	.half	0x0008,0x0009,0x000a,0x000b,0x000c,0x000d,0x000e,0x7fff
+	.half	0x7000,0x7fff
 
 hello_data:
     .byte   0,1,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1
