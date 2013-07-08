@@ -27,15 +27,15 @@ Currently code is implemented for the following platforms.
  * Atari ST
  * Amiga OCS
  * Game Boy Advance
+ * Sega Master System
+ * Game Boy
 
 In progress
 ----------------
 Implementations on some platforms has begun, but is not 100% complete.
 In some cases it's 99% done, in others 1%.
 
- * Sega Master System
- * Game Boy
-
+Currently, I have not decided what platform to do next.
 
 Planned
 ----------------
