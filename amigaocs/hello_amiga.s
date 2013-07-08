@@ -99,6 +99,7 @@ vmem_ptr:
     dc.w    $00e2,$0000     ; low word of bitplane 0 address
 
     dc.w    $0180,$0000     ; Write to color 0 register.
+    dc.w    $0182,$0fff     ; Write to color 1 register.
 
     ; So this is how you make rasterbars on the amiga.. no
     ; challange at all.. Some day I will show you how it's made
