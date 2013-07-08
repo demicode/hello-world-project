@@ -1,4 +1,10 @@
+;
+; Hello World Gameboy.
+;
+; Orignal Gameboy version.
+;
 
+; WLA DX setup. 
 .MEMORYMAP
   SLOTSIZE $4000
   DEFAULTSLOT 0
@@ -11,7 +17,7 @@
 
 ; Ram memory at $a000 - $bfff
 
-
+; All jump vectors just jump to main code.
 .bank 0
 .orga $00 
 	jp $100 
@@ -62,6 +68,9 @@ joypad:
 	.db	$00,$08,$11,$1f,$88,$89,$00,$0e,$dc,$cc,$6e,$e6,$dd,$dd,$d9,$99
 	.db	$bb,$bb,$67,$63,$6e,$0e,$ec,$cc,$dd,$dc,$99,$9f,$bb,$b9,$33,$3e
 
+; This block tells wla dx to generate a GB rom with the expected values
+; in the header.
+
 .NAME "HELLOWORLD " ; must be 11 bytes.
 .COMPUTEGBCHECKSUM
 .CARTRIDGETYPE $1
@@ -71,45 +80,37 @@ joypad:
 
 .orga $150
 main:
-	ld sp,$e000  ; Setup stackpointer.
+	ld sp,$e000  	; Setup stackpointer.
 
-	ld hl,$8000
-	ld de,gfx
-	ld b,16*7
+	ld hl,$8000		; Load address to tile ram
+	ld de,gfx		; Load address to graphics data.
+	ld b,8*7		; seven tiles of 8 bytes of data.
+					; Not that tile data is actually 16 bytes, but
+					; we duplicate the data on two bilplanes in loop.
 -:
-	ld a,(de)
-	xor	$ff
-	ldi (hl),a
-	ldi (hl),a
-	inc de 
-	dec b
-	jp nz,-
+	ld a,(de)		; Get graphics data.
+	ldi (hl),a		; load and increase
+	ldi (hl),a		; same data on both bitplanes
+	inc de 			; increase source
+	dec b			; decrease register b
+	jp nz,-			; loop if result not zero
 
 
-	ld hl,$9800
-	ld a,1
-	ld b,6
+	ld hl,$9800		; Load address to tilemap
+	ld a,1			; first tile to set (tile 0 is empty)
+	ld b,6			; Hello world consists of 6 tiles
 -:
-	ldi (hl),a
-	inc a
-	dec b
-	jp nz,-
-
-
+	ldi (hl),a		; Write tile number to tilemap
+	inc a			; next tile number
+	dec b			; decrease counter
+	jp nz,-			; repeat until b is 0.
 	
--:	jp -
-
-
+-:	
+	stop
+	jp -			; endless loop
 
 gfx:  
-	.db     $00
-	.db     $00
-	.db     $00
-	.db     $00
-	.db     $00
-	.db     $00
-	.db     $00
-	.db     $00
+	.db     $00,$00,$00,$00,$00,$00,$00,$00
 
 	.db     %00000000
 	.db     %01000100
