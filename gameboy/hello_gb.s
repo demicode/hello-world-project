@@ -106,7 +106,7 @@ main:
 	jp nz,-			; repeat until b is 0.
 	
 -:	
-	stop
+	halt
 	jp -			; endless loop
 
 gfx:  
