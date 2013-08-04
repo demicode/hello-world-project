@@ -20,7 +20,7 @@ super_run:
     ; the screen_mem reservation is 32000 + 256 extra bytes.
 
     move.l  #screen_mem,d0  ; Move address to screen mem to d0
-    add.w   #$ff,d0         ; Add 255 d0 address
+    add.l   #$ff,d0         ; Add 255 d0 address
     clr.b   d0              ; Clear lowest byte in address
     move.l  d0,a6           ; Store screen pointer in a6
 
