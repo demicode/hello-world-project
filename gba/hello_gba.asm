@@ -16,7 +16,7 @@
 
 	b	_start
 
-	.space 0xf0,0x9c		; fill 0x9c bytes with 0xf0
+	.space 0x9c,0xf0		; fill 0x9c bytes with 0xf0
 
 	; Game title starts at 0x080000a0, 12 chars
 	.ascii "Hello World!"	; 12 chars
@@ -25,7 +25,7 @@
 	; then two chars of makers id...
 	.byte	"GB"
 	; after that, i don't know.
-	.space 0xba,0			; Reset of header.. fill with 0
+	.space 0xba,0			; Rest of header.. fill with 0
 _start:
 
 	; Set display mode
