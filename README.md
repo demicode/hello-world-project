@@ -28,14 +28,15 @@ Currently code is implemented for the following platforms.
  * Amiga OCS
  * Game Boy Advance
  * Sega Master System
- * Game Boy
 
 In progress
 ----------------
 Implementations on some platforms has begun, but is not 100% complete.
 In some cases it's 99% done, in others 1%.
 
-Currently, I have not decided what platform to do next.
+ * Game Boy
+ * Atari 8bit
+ * MSX
 
 Planned
 ----------------
@@ -46,9 +47,10 @@ to the list.
  * Sega Mega Drive
  * SNES
  * NES
- * Atari 8bit
- * MSX
  * C64
+ * Oric1
+ * Sinclair ZX81
+ * Sinclair ZX Spectrum (Don't know how much it differs from the ZX81)
 
 Disclaimer
 ----------
