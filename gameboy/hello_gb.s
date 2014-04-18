@@ -12,6 +12,9 @@
   SLOT 1 $4000
 .ENDME
 
+; Fill unused memory with ff to be kind to flash memory.
+.EMPTYFILL $ff
+
 .ROMBANKSIZE $4000
 .ROMBANKS 2
 
@@ -20,21 +23,7 @@
 ; All jump vectors just jump to main code.
 .bank 0
 .orga $00 
-	jp $100 
-.orga $08 
-	jp $100 
-.orga $10 
-	jp $100 
-.orga $18
-	jp $100 
-.orga $20
-	jp $100 
-.orga $28
-	jp $100 
-.orga $30
-	jp $100 
-.orga $38
-	jp $100 
+	ret
 
 ; Interrupt vectors.
 .orga $40
@@ -80,7 +69,21 @@ joypad:
 
 .orga $150
 main:
-	ld sp,$e000  	; Setup stackpointer.
+	di
+
+	; ldh is a special opcode for gameboy.
+	; ldh (x),a essentially writes content of a to address $ff00 + x
+	; by coincidence the gameboys memory mapped i/o is in address range $ff00 -> $ffff
+
+	ld	a,0
+	ldh	($ff),a		
+	sub	a
+	ldh	($41),a
+	ldh	($42),a
+	ldh	($43),a
+
+
+	ld sp,$d900  	; Setup stackpointer.
 
 	ld hl,$8000		; Load address to tile ram
 	ld de,gfx		; Load address to graphics data.
@@ -104,8 +107,16 @@ main:
 	inc a			; next tile number
 	dec b			; decrease counter
 	jp nz,-			; repeat until b is 0.
+
+
+
+
+	ld	a,%10010001	; LCD Controller = On  BG = On  Sprites = Off
+	ldh	($40),a
 	
 -:	
+
+
 	halt
 	jp -			; endless loop
 
