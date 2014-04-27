@@ -51,6 +51,7 @@ to the list.
  * Oric1
  * Sinclair ZX81
  * Sinclair ZX Spectrum (Don't know how much it differs from the ZX81)
+ * Atari VCS
 
 Disclaimer
 ----------
