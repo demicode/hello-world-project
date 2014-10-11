@@ -1,17 +1,27 @@
-	opt h+
-	org $2000 ;Start of code
+;
+; Hello World for atari 8 bit
+; Should atleast work on XL and XE revisions of the hardware.
+; 
+; Tested on 130XE
+;
+; Assembled using mads (http://mads.atari8.info/)
+;
 
-start:
+	opt h+			; Add DOS executable header
+
+	org $2000		; Load address of the code block.
+
+start:				; 
 	lda	#0
-	sta	$d40e	; Disable all interrupts
-	sta	$d400	; disable all screen dma
+	sta	$d40e		; Disable all interrupts
+	sta	$d400		; disable all screen dma
 
 	; Install VBL interrupt handler
 	; at $222, which will disable all
 	; OS functionality
-	lda	#<vbl_irq
-	sta	$222
-	lda	#>vbl_irq
+	lda	#<vbl_irq	; Low byte (LSB) of address
+	sta	$222		; OS handler jumps through this vector ($222-$223) at start of VBI.
+	lda	#>vbl_irq	; High byte (MSB) of address
 	sta	$223
 
 	; Set display list pointer.
