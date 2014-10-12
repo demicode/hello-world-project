@@ -27,13 +27,10 @@
 
 	; The following code will be placed at $1000
 	org	$1000
-
-
-	lda	#$0
-
+	lda	#0
 	sta	$d020
 	sta	$d021
-	ldx	0
+	ldx	#0
 	lda	#0
 .clear_screen
 	sta	$400,x
