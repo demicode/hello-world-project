@@ -1,24 +1,16 @@
-
 SRC = hello_c64.s
-OBJS = $(SRC:.s=.o)
 
-LNKFILE = linkfile.lnk
+DASM=/usr/local/bin/dasm
+
 EXEFILE = runme.prg
 
 all: $(EXEFILE)
 
-
 $(EXEFILE): $(SRC)
-	dasm $^ -o$(EXEFILE) -llist.txt -v3
-#	wlalink -vr $(LNKFILE) $@
-
-%.o: %.s
-	wla-6502 -o $< $@ -v3
-
-$(LNKFILE):
-	@echo "[objects]" > $@
-	@echo "$(OBJS)" >> $@
-
+	$(DASM) $^ -o$(EXEFILE) -llist.txt -v3
 
 clean:
-	@rm -f $(OBJS) $(EXEFILE)
+	@rm -f $(EXEFILE)
+
+test: $(EXEFILE)
+	/Applications/vice/x64.app/Contents/MacOS/x64 $(EXEFILE)
