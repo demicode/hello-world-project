@@ -20,18 +20,43 @@
 	org $801
 
 	.byte $0c, $08, $0a, $00, $9e, $20
-	.byte $34, $30, $39, $36, $00, $00
-	.byte $00
+	.byte $32, $30, $36, $34, $00, $00, $00
 
 	; End of BASIC header. 
 
-	; The following code will be placed at $1000
-	org	$1000
+	; $d011 VIC control register 1.
+	; +----------+---------------------------------------------------+
+    ; | Bit  7   |    Raster Position Bit 8 from $D012               |
+    ; | Bit  6   |    Extended Color Text Mode: 1 = Enable           |
+    ; | Bit  5   |    Bitmap Mode: 1 = Enable                        |
+    ; | Bit  4   |    Blank Screen to Border Color: 0 = Blank        |
+    ; | Bit  3   |    Select 24/25 Row Text Display: 1 = 25 Rows     |
+    ; | Bits 2-0 |    Smooth Scroll to Y Dot-Position (0-7)          |
+    ; +----------+---------------------------------------------------+
+
+
+	; $D016: VIC Control Register 2
+	; +----------+---------------------------------------------------+
+	; | Bits 7-6 |    Unused                                         |
+	; | Bit  5   |    Reset-Bit: 1 = Stop VIC (no Video Out, no RAM  |
+	; |          |                   refresh, no bus access)         |
+	; | Bit  4   |    Multi-Color Mode: 1 = Enable (Text or Bitmap)  |
+	; | Bit  3   |    Select 38/40 Column Text Display: 1 = 40 Cols  |
+	; | Bits 2-0 |    Smooth Scroll to X Dot-Position (0-7)          |
+	; +----------+---------------------------------------------------+
+
+	org $810
+
+	lda	#$10		; 
+	sta	$d011
+	lda	#$00
+	sta	$d016
+
 	lda	#0
-	sta	$d020
-	sta	$d021
-	ldx	#0
-	lda	#0
+	;sta	$d020 ; border color?
+	;sta	$d021 ; background color 0
+	tax
+	lda	#$2
 .clear_screen
 	sta	$400,x
 	sta	$500,x
