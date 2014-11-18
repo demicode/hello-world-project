@@ -18,10 +18,12 @@ start:				;
 
 	; Install VBL interrupt handler
 	; at $222, which will disable all
-	; OS functionality
+	; OS functionality if I understand 
+	; correctly
 	lda	#<vbl_irq	; Low byte (LSB) of address
 	sta	$222		; OS handler jumps through this vector ($222-$223) at start of VBI.
 	lda	#>vbl_irq	; High byte (MSB) of address
+
 	sta	$223
 
 	; Set display list pointer.
