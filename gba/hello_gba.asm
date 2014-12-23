@@ -5,7 +5,10 @@
 ; 
 ; Compiled with vasmarm_std. 
 ;
-; Tested in VisualBoyAdvance-M (svn1149)
+; Tested with:
+;  VisualBoyAdvance-M (svn1149)
+;  mess64 (0.156)
+;  Boycott Advance (0.4.0)
 ;
 
 	.arm		; Use arm instruction set.
@@ -16,7 +19,8 @@
 
 	b	_start
 
-	.space 0x9c,0xf0		; fill 0x9c bytes with 0xf0
+	; Special Nintendo GBA header (graphics) data   
+	.incbin 	"gba_data.bin"
 
 	; Game title starts at 0x080000a0, 12 chars
 	.ascii "Hello World!"	; 12 chars
@@ -24,8 +28,21 @@
 	.ascii	"1234"
 	; then two chars of makers id...
 	.byte	"GB"
-	; after that, i don't know.
-	.space 0xba,0			; Rest of header.. fill with 0
+	; Fixed value 
+	.byte	0x96
+	; Main unit code
+	.byte	0x00
+	; Device type
+	.byte 0x80
+	; Reserved area
+	.space 7,0
+	; Mask ROM version
+	.byte 0
+	; Compliment Check
+	.byte 0 			; Calculated by separate python script 
+	; More reserved
+	.half 0
+
 _start:
 
 	; Set display mode
