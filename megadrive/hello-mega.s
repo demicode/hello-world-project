@@ -113,15 +113,17 @@ VDP_DATA	equ	VDP_BASE
 VDP_CTRL	equ	VDP_BASE+4
 
 	move.w	#$2700,sr
-	move.l	$a10008,d0	; Reset test.
-	or.w	$a1000c,d0
-	bne.s	.softreset
+;	move.l	$a10008,d0	; Reset test.
+;	or.w	$a1000c,d0
+;	bne.s	.softreset
 
 	move.b	$a10001,d0		; Version 
 	andi.b	#$0f,d0			; is low byte zero?
 	beq.s	.softreset		; yes, skip unlocking of VDP
 	move.l  #'SEGA',$a14000
 .softreset
+
+	bsr.s	setup_vdp
 
 	lea		VDP_BASE,a0
 	moveq	#0,d0
@@ -155,7 +157,6 @@ VDP_CTRL	equ	VDP_BASE+4
 	move.l	#$00030004,(a0)	; tiles 3 and 4
 	move.l	#$00050006,(a0)	; tiles 5 and 6
 
-	bsr.s	setup_vdp
 
 stay:
 	stop	#$2400
@@ -191,14 +192,19 @@ exception_handler:
 ; http://md.squee.co/wiki/VDP
 vdp_regs:
 	dc.w	$8004		; mode register 1 
-	dc.w	$8140		; mode register 2 - Display enable bit set ($40) + VBI ($20)
+	dc.w	$8144		; mode register 2 - Display enable bit set ($40) + VBI ($20)
 	dc.w	$8208		; plane a table location - VRAM:$2000
 	dc.w	$8318		; window table location -  VRAM:$3000
 	dc.w	$8406		; plane b table location - VRAM:$4000
 	dc.w	$8500		; sprite table location (reg 5) 2*$200 = $400
+	dc.w	$8600		; sprite pattern generator base addr. (always 0 on unmodified hardware)
 	dc.w	$8700		; backgroud colour,  (reg 7)
+	dc.w	$8800		; 0
+	dc.w	$8900		; 0
 	dc.w	$8b00		; Mode register 3
 	dc.w	$8c00		; mode register 4
+	dc.w	$8d05		; HBL_scroll data location. ($1400)
+	dc.w	$8e00		; 0
 	dc.w	$8f02		; auto-increment value
 	dc.w	$9000		; plane size
 	dc.w	$9100		; window plane h-pos
