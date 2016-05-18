@@ -37,6 +37,7 @@ In some cases it's 99% done, in others 1%.
 
  * Game Boy
  * MSX
+ * Sega Mega Drive
 
 Planned
 ----------------
@@ -44,7 +45,6 @@ I intend to include code for the following hardware. If you want to
 see more platforms, just send me a request and I will maybe add it 
 to the list.
 
- * Sega Mega Drive
  * SNES
  * NES
  * C64
