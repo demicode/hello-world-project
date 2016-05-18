@@ -28,6 +28,7 @@ Currently code is implemented for the following platforms.
  * Amiga OCS
  * Game Boy Advance
  * Sega Master System
+ * Atari 8bit
 
 In progress
 ----------------
@@ -35,7 +36,6 @@ Implementations on some platforms has begun, but is not 100% complete.
 In some cases it's 99% done, in others 1%.
 
  * Game Boy
- * Atari 8bit
  * MSX
 
 Planned
@@ -64,4 +64,3 @@ other people that implements what I want to do.
 Contact
 -------
 Mikael Degerfält - micke()demicode.se
-
