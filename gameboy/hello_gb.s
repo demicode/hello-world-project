@@ -82,7 +82,7 @@ main:
     ; Wait for vblank period before disabling lcd controller
 -:  ldh a,($44)
     sub 144
-    jp  c,-
+    jp  nz,-
 
     xor a           ; clear register a
     ldh ($40),a     ; disable LCD and stuff
@@ -100,14 +100,12 @@ main:
     ld b,8*7        ; seven tiles of 8 bytes of data.
                     ; Not that tile data is actually 16 bytes, but
                     ; we duplicate the data on two bilplanes in loop.
--:
-    ld a,(de)       ; Get graphics data.
+-:  ld a,(de)       ; Get graphics data.
     ldi (hl),a      ; load and increase
     ldi (hl),a      ; same data on both bitplanes
     inc de          ; increase source
     dec b           ; decrease register b
     jp nz,-         ; loop if result not zero
-
 
     ld hl,$9800     ; Load address to tilemap
     ld a,1          ; first tile to set (tile 0 is empty)
@@ -118,10 +116,9 @@ main:
     dec b           ; decrease counter
     jp nz,-         ; repeat until b is 0.
 
-    ld  a,%10010001 ; LCD Controller = On  BG = On  Sprites = Off
+    ld  a,%10010001 ; LCD Controller = On, tile ram @ $8000, BG = On
     ldh ($40),a
 -:
-
     halt
     jp -            ; endless loop
 
