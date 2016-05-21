@@ -1,14 +1,14 @@
 The Hello World project
 =======================
 
-A collection of assembly code to display a 'Hello World' message on screen 
+A collection of assembly code to display a 'Hello World' message on screen
 for various oldschool platforms.
 
 The intention is to learn to write code for new (to me) and old platforms
 and to maybe inspire other to start coding assembler for these platforms,
 when they see how easy (?) it can be to get started.
 
-The goal is to make use of the hardware instead of any OS functions. I 
+The goal is to make use of the hardware instead of any OS functions. I
 will not put any effort in being system friendly or so, just do the initial
 setup that is needed to draw the graphics on the screen.
 
@@ -29,25 +29,26 @@ Currently code is implemented for the following platforms.
  * Game Boy Advance
  * Sega Master System
  * Atari 8bit
+ * Game Boy
+ * Sega Mega Drive
 
 In progress
 ----------------
 Implementations on some platforms has begun, but is not 100% complete.
 In some cases it's 99% done, in others 1%.
 
- * Game Boy
  * MSX
- * Sega Mega Drive
+ * Atari Jaguar
+ * C64
 
 Planned
 ----------------
 I intend to include code for the following hardware. If you want to
-see more platforms, just send me a request and I will maybe add it 
+see more platforms, just send me a request and I will maybe add it
 to the list.
 
  * SNES
  * NES
- * C64
  * Oric1
  * Sinclair ZX81
  * Sinclair ZX Spectrum (Don't know how much it differs from the ZX81)
@@ -55,7 +56,7 @@ to the list.
 
 Disclaimer
 ----------
-This project is made for my own pleasure, and I take no responsibility 
+This project is made for my own pleasure, and I take no responsibility
 if the code harm you computer(s) in any way. I do not claim that the my
 solutions are the best way, or even a good way to do what they intend to.
 I do this to learn new platforms, not to collect code from
