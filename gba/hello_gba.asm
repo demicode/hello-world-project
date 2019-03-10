@@ -14,8 +14,7 @@
 	.arm		; Use arm instruction set.
 
 	; header...
-	.org	0x08000000		; GBA ROM Address starts at 0x08000000
-	.section text			
+	.section .text
 
 	b	_start
 
@@ -27,7 +26,7 @@
 	; game code follows, 4 chars.
 	.ascii	"1234"
 	; then two chars of makers id...
-	.byte	"GB"
+	.byte	"DC"
 	; Fixed value 
 	.byte	0x96
 	; Main unit code
@@ -101,3 +100,4 @@ hello_data:
 	.byte	0,1,0,1,0,1,0,0,1,0,1,0,0,0,0,1,0,1,0,0,1,0,0,0
 	.byte   0,1,0,0,0,1,0,0,1,1,1,1,0,1,0,1,0,0,1,1,0,0,0,0
 	.byte	1,0,1,0,0,0,1,1,0,0,1,0,0,0,0,1,0,0,1,1,1,0,1,0
+
