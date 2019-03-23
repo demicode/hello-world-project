@@ -67,42 +67,14 @@ main_loop:
 hello_standard_bitmap_mode: subroutine
 
 	; disable video while setting up video memory
-	lda	$0
-	sta	$d011
-
-	lda	#0
-	sta	$d020 	; border color?
-	lda	 #1
-	sta	$d021 	; background color 0
-
-	; setup stuff
-	; clear 8000 bytes of screen ram.
-	ldx	#$00
-	lda	#$20
-	stx	$fb		; use memory $fb to $fc 
-	sta	$fc		; as base pointer to $2000
-
-	ldy	#0
-	ldx #32
 	lda	#$0
-.clear_loop
-	sta	($fb),y
-	iny
-	bne	.clear_loop
-	inc $fc
-	dex
-	bne	.clear_loop
+	sta	$d011
+	sta	$d020 	; border color to black
 
-	; clear color ram at $400
+	jsr	clear_screen
+
 	lda	#$10
-	ldx	#0
-.cram_clear
-	sta	$400,x
-	sta	$500,x
-	sta	$600,x
-	sta	$700,x
-	dex
-	bne	.cram_clear
+	jsr	fill_color_ram
 
 	; copy graphics data to screen
 	lda	#<gfx
@@ -116,7 +88,6 @@ hello_standard_bitmap_mode: subroutine
 	sta	$2000,y
 	dey
 	bne	.copy_loop
-
 
 	; Set video mode
 	lda	#3
@@ -145,37 +116,14 @@ hello_standard_bitmap_mode: subroutine
 hello_multi_color_bitmap_mode: subroutine
 
 	; disable video while setting up video memory
-	lda	$0
+	lda	#$0
 	sta	$d011
 
-	; setup stuff
-	; clear 8000 bytes of screen ram.
-	ldx	#$00
-	lda	#$20
-	stx	$fb		; use memory $fb to $fc 
-	sta	$fc		; as base pointer to $2000
-
-	ldy	#0
-	ldx #32
-	lda	#$0
-.clear_loop
-	sta	($fb),y
-	dey
-	bne	.clear_loop
-	inc $fc
-	dex
-	bne	.clear_loop
+	jsr	clear_screen
 
 	; clear color ram at $400
 	lda	#$0
-	ldx	#0
-.cram_clear
-	sta	$400,x
-	sta	$500,x
-	sta	$600,x
-	sta	$700,x
-	dex
-	bne	.cram_clear
+	jsr	fill_color_ram
 
 	; copy graphics data to screen
 	lda	#<multi_gfx
@@ -203,8 +151,8 @@ hello_multi_color_bitmap_mode: subroutine
 	bpl	.copy_row2
 
 	lda	#$b
-	sta	$d020 	; border color
-	sta	$d021 	; background color 0
+	sta	$d020 	; border color gray
+	sta	$d021 	; background color also gray
 
 
 	; Set video mode
@@ -226,6 +174,37 @@ hello_multi_color_bitmap_mode: subroutine
 	rts
 
 
+fill_color_ram: subroutine
+	ldx	#0
+.cram_clear
+	sta	$400,x
+	sta	$500,x
+	sta	$600,x
+	sta	$700,x
+	dex
+	bne	.cram_clear
+
+	rts
+
+
+clear_screen: subroutine
+	; clear 8000 bytes of screen ram at $2000
+	ldx	#$00
+	lda	#$20
+	stx	$fb		; use memory $fb to $fc
+	sta	$fc		; as base pointer to $2000
+
+	ldy	#0
+	ldx #32
+	lda	#$0
+.clear_loop
+	sta	($fb),y
+	iny
+	bne	.clear_loop
+	inc $fc
+	dex
+	bne	.clear_loop
+	rts
 
 ;----
 wait_vbl:
