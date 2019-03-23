@@ -12,9 +12,9 @@
 	.processor 6502
 
 	; This header is actually BASIC code with one line of code:
-	; 10 SYS 4096
+	; 10 SYS 2064
 	; Without this header, you must run the code manually by
-	; typing sys 4096 yourself.
+	; typing sys 2064 yourself.
 
 	; Tell the assembler that the following code will be located
 	; at address $801, which is where all BASIC code is loaded.
