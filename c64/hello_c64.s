@@ -134,7 +134,6 @@ hello_multi_color_bitmap_mode: subroutine
 	sta	$d020 	; border color gray
 	sta	$d021 	; background color also gray
 
-
 	; Set video mode
 	lda	#3
 	sta	$dd00
@@ -144,7 +143,6 @@ hello_multi_color_bitmap_mode: subroutine
 	sta	$d011
 	stx $d016
 	sty	$d018
-	ldx #0
 
 	ldx #$80
 .wait
