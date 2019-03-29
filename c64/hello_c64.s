@@ -77,14 +77,9 @@ hello_standard_bitmap_mode: subroutine
 	jsr	fill_color_ram
 
 	; copy graphics data to screen
-	lda	#<gfx
-	ldx	#>gfx
-	sta	$fb
-	stx $fc
-
 	ldy	#gfx_len-1
 .copy_loop
-	lda	($fb),y
+	lda	gfx,y
 	sta	$2000,y
 	dey
 	bne	.copy_loop
@@ -126,29 +121,14 @@ hello_multi_color_bitmap_mode: subroutine
 	jsr	fill_color_ram
 
 	; copy graphics data to screen
-	lda	#<multi_gfx
-	ldx	#>multi_gfx
-	sta	$fb
-	stx $fc
-
 	ldy	#88-1
-.copy_row1
-	lda	($fb),y
+.copy_row
+	lda	multi_gfx,y
 	sta	$2200,y
-	dey
-	bpl	.copy_row1
-
-	lda	#<(multi_gfx+88)
-	ldx	#>(multi_gfx+88)
-	sta	$fb
-	stx $fc
-
-	ldy	#88-1
-.copy_row2
-	lda	($fb),y
+	lda	multi_gfx+88,y
 	sta	$2200+320,y
 	dey
-	bpl	.copy_row2
+	bpl	.copy_row
 
 	lda	#$b
 	sta	$d020 	; border color gray
