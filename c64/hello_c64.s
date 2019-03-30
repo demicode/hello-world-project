@@ -159,7 +159,7 @@ fill_color_ram: subroutine
 	sta	$500,x
 	sta	$600,x
 	sta	$700,x
-	dex
+	inx
 	bne	.cram_clear
 
 	rts
