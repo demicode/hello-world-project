@@ -20,45 +20,42 @@ start
     inx
     bne     .clear
 
-    lda     #0
+    lda     #$10
     sta     128
 
 
-kernel_loop:
+kernel_loop: SUBROUTINE
     sei
     lda     #0
     sta     VBLANK
     lda     #2
-    sta     VSYNC
+    sta     VSYNC       ; Start VSYNC
     lda     #0
     ; VSYNC for 3 scanlines
     sta     WSYNC
     sta     WSYNC
     sta     WSYNC
 
-    sta     VSYNC
+    sta     VSYNC       ; Stop VSYNC
 
-    ldx     #37+58
+    ; 37 scanlines for vertical blank, followed by waiting 58 lines before the graphics starts
+    ldx     #45+50
 .vblank
     sta     WSYNC
     dex
     bne     .vblank
 
 
-
-;    .repeat      58
-;    sta     WSYNC
-;    .repend
-
-    lda     128
-    inc     128
+    lda     128     ; Color byte in RAM
+;    inc     128     ; Increase color by one
     sta     WSYNC
 
 DATA_ADDR set datas
 
     .repeat 6     ; 6 rows
-    .repeat 6      ; 4 blocks
 
+    ldy     #8
+apa set .
     sta     8   ; background color
 
     ldx     DATA_ADDR
@@ -70,7 +67,6 @@ DATA_ADDR set datas
 
     nop
     nop
-    nop
 
     ldx     DATA_ADDR+3
     stx     $0d
@@ -80,19 +76,14 @@ DATA_ADDR set datas
     stx     $0f
 
     clc
-    adc #2
+    adc     #2
 
     sta     WSYNC
 
-    .repend
+    dey
+    bne     apa
 
 DATA_ADDR set DATA_ADDR + 6
-
-;DATA_ADDR equ DATA_ADDR+6
-;    tya
-;    clc
-;    adc #6
-;    tay
 
     .repend
 
@@ -105,7 +96,7 @@ DATA_ADDR set DATA_ADDR + 6
     sty 8
 
     ldy     #0
-    ldx     #171-24
+    ldx     #165-36
 .display
     sta     WSYNC
 
@@ -115,7 +106,7 @@ DATA_ADDR set DATA_ADDR + 6
     lda     #2
     sta     VBLANK
 
-    ldx     #30
+    ldx     #36
 .overscan
     sta     WSYNC
     dex

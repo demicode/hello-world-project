@@ -1,12 +1,12 @@
 DASM=/usr/local/bin/dasm
 
-SRC = hellokernel.s
+SRC = hellokernel.asm
 EXEFILE = hello2600.bin
 
 all: $(EXEFILE)
 
 $(EXEFILE): $(SRC)
-	$(DASM) $^ -o$(EXEFILE) -llist.txt -v2 -f3
+	$(DASM) $^ -o$(EXEFILE) -llist.txt -v3 -f3
 
 clean:
 	@rm -f $(EXEFILE) list.txt
