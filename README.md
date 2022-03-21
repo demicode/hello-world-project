@@ -31,6 +31,8 @@ Currently code is implemented for the following platforms.
  * Atari 8bit
  * Game Boy
  * Sega Mega Drive
+ * C64
+ * Atari VCS
 
 In progress
 ----------------
@@ -39,7 +41,7 @@ In some cases it's 99% done, in others 1%.
 
  * MSX
  * Atari Jaguar
- * C64
+
 
 Planned
 ----------------
@@ -52,7 +54,6 @@ to the list.
  * Oric1
  * Sinclair ZX81
  * Sinclair ZX Spectrum (Don't know how much it differs from the ZX81)
- * Atari VCS
 
 Disclaimer
 ----------
